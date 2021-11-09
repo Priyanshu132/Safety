@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hapini.pvt.safety">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -9,12 +15,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Safety">
-        <activity android:name=".MainActivity">
+        <activity android:name=".PrivacyPolicy"></activity>
+        <activity android:name=".About" />
+        <activity android:name=".ForgetPassword" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".Login"
+            android:label="Login Page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+        </activity>
+        <activity android:name=".Guider" />
+        <activity android:name=".AllContacts" />
+        <activity android:name=".Recorded_images" />
+        <activity android:name=".RecordedAudio" />
+        <activity android:name=".Profile" />
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
