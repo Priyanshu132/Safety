@@ -1,18 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="10dp"
+        android:weightSum="2">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/profile"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:background="@drawable/button_bg"
+                android:text="Profile"
+                android:textSize="13dp"
+                android:drawableTop="@drawable/profile"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="20dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/recorded_audio"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:background="@drawable/button_bg"
+                android:text="Recorded Audio"
+                android:textSize="13dp"
+                android:drawableTop="@drawable/record_voice"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="20dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="40dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/recorded_picture"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:background="@drawable/button_bg"
+                android:text="Recorded Images"
+                android:textSize="13dp"
+                android:drawableTop="@drawable/recorded_image"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="20dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/guider"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:background="@drawable/button_bg"
+                android:text="Guider"
+                android:textSize="13dp"
+                android:drawableTop="@drawable/helper"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="20dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/all_contacts"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:background="@drawable/button_bg"
+                android:text="All contacts"
+                android:textSize="13dp"
+                android:drawableTop="@drawable/contacts"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/add_contact"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:background="@drawable/button_bg"
+                android:text="Add contact"
+                android:textSize="13dp"
+                android:drawableTop="@drawable/add_contact"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="20dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
