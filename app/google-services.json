@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "334006451378",
+    "project_id": "safety-b13a9",
+    "storage_bucket": "safety-b13a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334006451378:android:70e66406be814a85851dab",
+        "android_client_info": {
+          "package_name": "com.hapini.pvt.safety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334006451378-7ggirc6nukqrolute57o72m8706hh8am.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hapini.pvt.safety",
+            "certificate_hash": "5015dfb4ae225dc61246d3abbe1eb316dcada24f"
+          }
+        },
+        {
+          "client_id": "334006451378-vcktqmugbtqlunabnsfd5jbdqrb8c2mr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOjhA6i7B4X6k9ziTtmj6Rrz-x6UeDMrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334006451378-vcktqmugbtqlunabnsfd5jbdqrb8c2mr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

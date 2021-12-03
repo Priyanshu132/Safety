@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".AllContacts">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/all_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="InvalidId" />
 </LinearLayout>
