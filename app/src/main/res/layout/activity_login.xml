@@ -55,23 +55,10 @@
             android:textStyle="bold" />
 
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/googleSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/purple_500"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="15dp"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="normal"
-            android:text="Or Login With E-mail"
-            android:textColor="#000"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"/>
+
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,17 +70,33 @@
             android:layout_marginLeft="25dp"
             android:text="UserName"/>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="10">
         <EditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:hint="E-mail"
-            android:layout_marginHorizontal="20dp"/>
+            android:inputType="phone"
+            android:hint="Enter Mobile Number"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"/>
 
+    <ImageView
+        android:id="@+id/edit"
+        android:visibility="gone"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/edit"/>
+</LinearLayout>
 
         <TextView
+            android:id="@+id/otp_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"
@@ -101,16 +104,18 @@
             android:layout_marginTop="30dp"
             android:textStyle="normal"
             android:layout_marginLeft="25dp"
-            android:text="Password"/>
+            android:text="OTP Verification"
+            android:visibility="gone"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:hint="**********"
-            android:layout_marginHorizontal="20dp"/>
+            android:hint="Enter OTP"
+            android:layout_marginHorizontal="20dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/login"
@@ -118,22 +123,27 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="30dp"
-            android:text="Login"
+            android:text="Send OTP"
             android:textColor="#FFF"
             android:textSize="18dp"
             android:background="@color/purple_500"/>
+        <Button
+            android:id="@+id/verify"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="30dp"
+            android:text="Verify"
+            android:textColor="#FFF"
+            android:textSize="18dp"
+            android:visibility="gone"
+            android:background="@color/purple_500"/>
 
-        <TextView
-            android:id="@+id/forget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forget Password?"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"/>
+
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/againSendOtp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -144,20 +154,20 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="#000"
-                android:text="Don't have an account?"
+                android:text="Din't receive the OTP?"
                 android:layout_marginBottom="5dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/signUp"
+                android:id="@+id/resend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/purple_500"
                 android:layout_marginBottom="5dp"
                 android:textStyle="bold"
-                android:text="Sign Up Here"
+                android:text="RESEND OTP"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"/>
