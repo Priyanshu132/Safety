@@ -8,6 +8,14 @@ public class Contact {
         return Name;
     }
 
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     public String getNumber() {
         return number;
     }
