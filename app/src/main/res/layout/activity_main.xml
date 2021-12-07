@@ -26,7 +26,7 @@
                 android:layout_width="115dp"
                 android:layout_height="115dp"
                 android:background="@drawable/button_bg"
-                android:text="Profile"
+                android:text="Start Application"
                 android:textSize="13dp"
                 android:drawableTop="@drawable/profile"
                 android:layout_marginLeft="5dp"
