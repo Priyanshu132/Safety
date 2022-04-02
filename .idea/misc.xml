@@ -11,10 +11,22 @@
         <entry key="..\:/AndroidPrograms/Safety/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidPrograms/Safety/app/src/main/res/layout/alert_box_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidPrograms/Safety/app/src/main/res/layout/contact_item.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/drawable/button_bg.xml" value="0.226" />
+        <entry key="app/src/main/res/drawable/profile.xml" value="0.226" />
+        <entry key="app/src/main/res/layout/activity_about.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_all_contacts.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_guider.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_recorded_audio.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/contact_item.xml" value="0.35625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

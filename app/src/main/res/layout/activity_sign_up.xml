@@ -12,7 +12,7 @@
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_bg"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -23,7 +23,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/images" />
+            android:src="@drawable/suraksha_icon" />
     </LinearLayout>
 
 
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="27dp"
-        android:text="Sign Up"
+        android:text="Details"
         android:layout_gravity="center"
         android:textColor="#000"
         android:textStyle="bold"/>
@@ -75,15 +75,14 @@
         android:layout_marginTop="12dp"
         android:textStyle="normal"
         android:layout_marginLeft="25dp"
-        android:text="E-mail"/>
+        android:text="Gender"/>
 
     <EditText
-        android:id="@+id/password1"
+        android:id="@+id/gender"
         android:layout_width="match_parent"
         android:singleLine="true"
-
         android:layout_height="wrap_content"
-        android:hint="Ex: abc123@gmail.com"
+        android:hint="Ex: Male/Female"
         android:layout_marginHorizontal="20dp"/>
 
     <TextView
@@ -94,15 +93,15 @@
         android:layout_marginTop="12dp"
         android:textStyle="normal"
         android:layout_marginLeft="25dp"
-        android:text="Password"/>
+        android:text="Mobile No"/>
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/mobile_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:inputType="textPassword"
-        android:hint="**********"
+        android:inputType="number"
+        android:hint="Ex: 7584965874"
         android:layout_marginHorizontal="20dp"/>
 
     <TextView
@@ -113,64 +112,27 @@
         android:layout_marginTop="12dp"
         android:textStyle="normal"
         android:layout_marginLeft="25dp"
-        android:text="Confirm Password"/>
+        android:text="Personal Message"/>
 
     <EditText
-        android:id="@+id/cpassword"
+        android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="**********"
-        android:inputType="textPassword"
+        android:hint="EX: Hi, I am in trouble Need your help !!!"
+        android:inputType="text"
         android:singleLine="true"
-
         android:layout_marginHorizontal="20dp"/>
 
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/proceed"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="15dp"
-        android:text="Sign Up"
+        android:text="Proceed"
         android:textColor="#FFF"
         android:textSize="18dp"
         android:background="@color/purple_500"/>
-
-
-
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="#000"
-            android:text="Have an account?"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="@color/purple_500"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:text="LogIn Here"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"/>
-
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -23,10 +23,10 @@
 
             <Button
                 android:id="@+id/profile"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
                 android:background="@drawable/button_bg"
-                android:text="Start Application"
+                android:text="Your Profile"
                 android:textSize="13dp"
                 android:drawableTop="@drawable/profile"
                 android:layout_marginLeft="5dp"
@@ -43,60 +43,12 @@
 
             <Button
                 android:id="@+id/recorded_audio"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
                 android:background="@drawable/button_bg"
-                android:text="Recorded Audio"
+                android:text="Your \nRecorded Audio"
                 android:textSize="13dp"
                 android:drawableTop="@drawable/record_voice"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="20dp"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="40dp"
-        android:weightSum="2">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/recorded_picture"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
-                android:background="@drawable/button_bg"
-                android:text="Recorded Images"
-                android:textSize="13dp"
-                android:drawableTop="@drawable/recorded_image"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="20dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            >
-
-            <Button
-                android:id="@+id/guider"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
-                android:background="@drawable/button_bg"
-                android:text="Guider"
-                android:textSize="13dp"
-                android:drawableTop="@drawable/helper"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:paddingTop="20dp"/>
@@ -121,10 +73,10 @@
 
             <Button
                 android:id="@+id/all_contacts"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
                 android:background="@drawable/button_bg"
-                android:text="All contacts"
+                android:text="Your Emergency contacts"
                 android:textSize="13dp"
                 android:drawableTop="@drawable/contacts"
                 android:layout_marginLeft="5dp"
@@ -140,10 +92,10 @@
 
             <Button
                 android:id="@+id/add_contact"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
                 android:background="@drawable/button_bg"
-                android:text="Add contact"
+                android:text="Add contact \nfrom List"
                 android:textSize="13dp"
                 android:drawableTop="@drawable/add_contact"
                 android:layout_marginLeft="5dp"
@@ -152,6 +104,14 @@
 
         </LinearLayout>
     </LinearLayout>
+
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="60dp"
+        android:text="Test app"
+        android:id="@+id/test"/>
 
 
 

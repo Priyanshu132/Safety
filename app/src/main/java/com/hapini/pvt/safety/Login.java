@@ -107,6 +107,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
+                System.out.println(e.getMessage()  +"  "+e.getLocalizedMessage());
                 Toast.makeText(getApplicationContext(),e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
             }
 

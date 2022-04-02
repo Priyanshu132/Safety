@@ -5,31 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#DFDFDF"
+    android:background="@color/white"
     tools:context=".SplashScreen"
     android:gravity="center">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/images"/>
+        android:src="@drawable/suraksha_icon"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WELCOME TO"
         android:textStyle="bold"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/purple_700"
         android:layout_marginTop="20dp"
         android:textSize="28dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SAFETY"
+        android:text="@string/app_name"
         android:textStyle="bold"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/purple_700"
         android:textSize="28dp"/>
 
 

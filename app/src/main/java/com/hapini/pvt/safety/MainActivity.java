@@ -71,20 +71,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button profile;
+    private Button test;
     private Button all_contacts;
-    private Button recoded_images;
     private Button recoded_audio;
-    private Button guider;
     private Button add_contact;
     private static final int CONTACT_PERMISSION_CODE = 1;
     private static final int CONTACT_PICK_CODE = 2;
     private DatabaseReference databaseReference;
     AlertDialog.Builder builder;
     public static final String SHARED_DATA = "name_and_contacts1";
+    public static final String SHARED_DATA_MESSAGE = "name_and_contacts";
+    public static final String SHARED_DATA_VOICE = "voice";
     private FusedLocationProviderClient fusedLocationProviderClient;
     private StorageReference storageReference;
     private static int MICROPHONE_PERMISSION_CODE = 200;
@@ -104,12 +106,17 @@ public class MainActivity extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
 
+        profile.setOnClickListener(View->{
+
+            Intent intent = new Intent(getApplicationContext(),Profile.class);
+            startActivity(intent);
+
+        });
 
         clickOnProfile();
         clickOnAllContact();
         clickOnAddContact();
-        clickOnGuider();
-        clickOnRecodedImage();
+
         clickOnRecodedAudio();
     }
 
@@ -147,7 +154,10 @@ public class MainActivity extends AppCompatActivity {
 //            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 //            sendIntent.setData(Uri.parse("sms:"+"7055825661"));
 //            startActivity(sendIntent);
-            Toast.makeText(getApplicationContext(),"Under Condtruction",Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getApplicationContext(),RecordedAudio.class);
+            startActivity(intent);
+            //Toast.makeText(getApplicationContext(),"Under Condtruction",Toast.LENGTH_SHORT).show();
 
 
 
@@ -162,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
        StorageReference filepath = storageReference.child("Emergency_Audio").child("New_Audio.mp3");
 
         Uri uri = Uri.fromFile(new File(getRecordingFilePath()));
+        SharedPreferences sd = getSharedPreferences(SHARED_DATA_VOICE,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sd.edit();
+        Set<String> set = sd.getStringSet("voice",new HashSet<>());
 
        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
            @Override
@@ -173,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         sendMessage(String.valueOf(uri));
+                        set.add(String.valueOf(uri));
+                        editor.putStringSet("voice",set);
+                        editor.commit();
+                        editor.apply();
                     }
                 });
 
@@ -232,18 +249,18 @@ public class MainActivity extends AppCompatActivity {
     private void clickOnRecodedImage() {
 
 
-        recoded_images.setOnClickListener(view -> {
+       // recoded_images.setOnClickListener(view -> {
 
            Toast.makeText(getApplicationContext(),"Under Condtruction",Toast.LENGTH_SHORT).show();
 
-        });
+      //  });
     }
 
     private void clickOnGuider() {
 
 
 
-        guider.setOnClickListener(view -> {
+     //   guider.setOnClickListener(view -> {
 
 
             String title = "NEED YOUR HELP";
@@ -253,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
             notificationsSender.SendNotifications();
 
            // Toast.makeText(getApplicationContext(),"Under Condtruction",Toast.LENGTH_SHORT).show();
-        });
+      //  });
     }
 
     @SuppressLint("MissingPermission")
@@ -408,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
                 Cursor cursor =   getContentResolver().query(uri,null,null,null,null);
                 if(cursor.moveToFirst()){
 
+
                     String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                     Toast.makeText(getApplicationContext(),name+" "+number,Toast.LENGTH_LONG).show();
@@ -464,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void clickOnProfile() {
 
-        profile.setOnClickListener(view -> {
+        test.setOnClickListener(view -> {
 
             ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
@@ -559,6 +577,7 @@ public class MainActivity extends AppCompatActivity {
 
       //  saveData();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_DATA,MODE_PRIVATE);
+        SharedPreferences sharedPreferences1 = getSharedPreferences(SHARED_DATA_MESSAGE,MODE_PRIVATE);
         HashSet<String> Numbers = (HashSet<String>) sharedPreferences.getStringSet("Number",new HashSet<>());
         ArrayList<String> Number_list = new ArrayList<>(Numbers);
 
@@ -567,11 +586,11 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0 ; i < Number_list.size() ;i++){
 
                 String num = Number_list.get(i);
-                String msg = "Hi , I am Priyanshu Gupta I need Your help!";
+               String msg = sharedPreferences1.getString("message","Hi, I am in trouble Need Your Help");
 
-                if(!num.isEmpty()){
+            if(!num.isEmpty()){
                     SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(num,null,msg,null,null);
+                    smsManager.sendTextMessage(num,null, msg,null,null);
 
 
                 }
@@ -589,8 +608,7 @@ public class MainActivity extends AppCompatActivity {
         profile = findViewById(R.id.profile);
         all_contacts = findViewById(R.id.all_contacts);
         recoded_audio = findViewById(R.id.recorded_audio);
-        recoded_images = findViewById(R.id.recorded_picture);
-        guider = findViewById(R.id.guider);
+        test = findViewById(R.id.test);
         add_contact = findViewById(R.id.add_contact);
     }
 
