@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:334006451378:android:70e66406be814a85851dab",
         "android_client_info": {
-          "package_name": "com.hapini.pvt.safety"
+          "package_name": "com.mind.blower.safety"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "334006451378-7ggirc6nukqrolute57o72m8706hh8am.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.hapini.pvt.safety",
+            "package_name": "com.mind.blower.safety",
             "certificate_hash": "5015dfb4ae225dc61246d3abbe1eb316dcada24f"
           }
         },

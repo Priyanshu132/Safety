@@ -1,4 +1,4 @@
-package com.hapini.pvt.safety;
+package com.mind.blower.safety;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.hapini.pvt.safety;
+package com.mind.blower.safety;
 
 public class Contact {
 

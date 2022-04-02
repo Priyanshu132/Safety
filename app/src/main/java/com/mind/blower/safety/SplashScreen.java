@@ -1,8 +1,7 @@
-package com.hapini.pvt.safety;
+package com.mind.blower.safety;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
