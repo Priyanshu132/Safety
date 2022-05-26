@@ -2,6 +2,7 @@ package com.mind.blower.safety;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -30,6 +32,8 @@ import android.os.Looper;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button profile;
     private Button test;
+    private Button activate;
+    private Button deactivate;
     private Button all_contacts;
     private Button recoded_audio;
     private Button add_contact;
@@ -101,12 +107,49 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
+        deactivate = findViewById(R.id.deactivate);
+        deactivate.setOnClickListener(View->{
+            deactivate.setVisibility(android.view.View.GONE);
+            activate.setVisibility(android.view.View.VISIBLE);
 
-        clickOnProfile();
+            Intent service = new Intent(MainActivity.this, ScreenOnOffBackgroundService.class);
+            service.setAction(ScreenOnOffBackgroundService.ACTION_STOP_FOREGROUND_SERVICE);
+            startService(service);
+
+        });
+        test.setOnClickListener(View->{
+           // clickOnProfile();
+            Everything everything = new Everything(getApplicationContext(),MainActivity.this);
+            everything.start();
+        });
+        if(isforegroundServiceRunning()){
+            activate.setVisibility(android.view.View.GONE);
+            deactivate.setVisibility(android.view.View.VISIBLE);
+        }
+        activate.setOnClickListener(View->{
+
+            if(!isforegroundServiceRunning()) {
+                activate.setVisibility(android.view.View.GONE);
+                deactivate.setVisibility(android.view.View.VISIBLE);
+
+                Intent service = new Intent(MainActivity.this, ScreenOnOffBackgroundService.class);
+               service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                service.setAction(ScreenOnOffBackgroundService.ACTION_START_FOREGROUND_SERVICE);
+                startForegroundService(service);
+            }
+        });
+
+
         clickOnAllContact();
         clickOnAddContact();
 
         clickOnRecodedAudio();
+
+//        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+//        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+//        intentFilter.addAction(Intent.ACTION_USER_PRESENT);;
+//        mReceiver = new ScreenReceiver();
+//        registerReceiver(mReceiver, intentFilter);
     }
 
     @Override
@@ -120,22 +163,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-        switch (item.getItemId()) {
-            case R.id.about:
-                startActivity(new Intent(MainActivity.this, RecordedAudio.class));
-                break;
-            case R.id.logout:
-                Toast.makeText(getApplicationContext(), "Under Construction", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.privacy:
-                Toast.makeText(getApplicationContext(), "Under Construction", Toast.LENGTH_SHORT).show();
-
-
-        }
+//        switch (item.getItemId()) {
+//            case R.id.about:
+//                startActivity(new Intent(MainActivity.this, RecordedAudio.class));
+//                break;
+//            case R.id.logout:
+//                Toast.makeText(getApplicationContext(), "Under Construction", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.privacy:
+//                Toast.makeText(getApplicationContext(), "Under Construction", Toast.LENGTH_SHORT).show();
+//
+//
+//        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void clickOnRecodedAudio()  {
+    public void clickOnRecodedAudio()  {
 
         recoded_audio.setOnClickListener(view -> {
 
@@ -153,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void uploadRecordiing() {
+    public void uploadRecordiing() {
 
         progressDialog.setTitle("Uploading Your Recording...");
         progressDialog.setMessage("Please Wait! It will take a few minutes...");
@@ -187,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startRecording(){
+    public void startRecording(){
 
         try {
             mediaRecorder = new MediaRecorder();
@@ -206,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private String getRecordingFilePath(){
+    public String getRecordingFilePath(){
 
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File music_file = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
@@ -214,28 +257,28 @@ public class MainActivity extends AppCompatActivity {
         return file.getPath();
     }
 
-    private boolean isMicrophonePresent(){
+    public boolean isMicrophonePresent(){
         if(this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)){
             return true;
         }
         return false;
     }
 
-    private void getMicrophonePermission(){
+    public void getMicrophonePermission(){
 
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},MICROPHONE_PERMISSION_CODE);
         }
     }
 
-    private void stopRecording(){
+    public void stopRecording(){
 
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
     }
 
-    private void clickOnRecodedImage() {
+    public void clickOnRecodedImage() {
 
 
        // recoded_images.setOnClickListener(view -> {
@@ -245,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
       //  });
     }
 
-    private void clickOnGuider() {
+    public void clickOnGuider() {
 
 
 
@@ -263,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
+    public void getCurrentLocation() {
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -304,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void sendMessage(double latitude, double longitude) {
+    public void sendMessage(double latitude, double longitude) {
 
         //saveData();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_DATA,MODE_PRIVATE);
@@ -334,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void clickOnAddContact() {
+    public void clickOnAddContact() {
 
         add_contact.setOnClickListener(view -> {
 
@@ -352,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void pickContactIntent() {
+    public void pickContactIntent() {
 
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
         startActivityForResult(intent,CONTACT_PICK_CODE);
@@ -374,8 +417,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+    public boolean isforegroundServiceRunning(){
+        ActivityManager activityManager = (ActivityManager)  getSystemService(Context.ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo serviceInfo : activityManager.getRunningServices(Integer.MAX_VALUE)){
+            if(ScreenOnOffBackgroundService.class.getName().equals(serviceInfo.service.getClassName())){
+                Log.e("Error","Service is already Running");
+                return true;
+            }
+        }
+        return false;
+    }
 
-    private void getPermission() {
+    public void getPermission() {
         if (ActivityCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(MainActivity.this,
@@ -392,7 +445,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.SEND_SMS,
-                    Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_CONTACTS}, 100);
+                    Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_CONTACTS,Manifest.permission.FOREGROUND_SERVICE}, 100);
         }
 
     }
@@ -428,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addContactToFirebase(String name, String number) {
+    public void addContactToFirebase(String name, String number) {
 
 
     databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -447,7 +500,7 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private boolean checkForPermission() {
+    public boolean checkForPermission() {
 
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == (PackageManager
                 .PERMISSION_GRANTED);
@@ -455,24 +508,24 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    private void requestPermission(){
+    public void requestPermission(){
 
         String[] persmission = {Manifest.permission.READ_CONTACTS};
 
         ActivityCompat.requestPermissions(this,persmission,CONTACT_PERMISSION_CODE);
     }
 
-    private void clickOnAllContact() {
+    public void clickOnAllContact() {
 
         all_contacts.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this,AllContacts.class));
         });
     }
 
-    private void clickOnProfile() {
+    public void clickOnProfile() {
 
-        test.setOnClickListener(view -> {
-
+     //   test.setOnClickListener(view -> {
+           // Toast.makeText(this,"Service is Running...",Toast.LENGTH_SHORT).show();
             ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -531,10 +584,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        });
+       // });
     }
 
-    private void sendMessage(String msg) {
+    public void sendMessage(String msg) {
 
         //  saveData();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_DATA,MODE_PRIVATE);
@@ -562,7 +615,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    private void sendMessage() {
+    public void sendMessage() {
 
       //  saveData();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_DATA,MODE_PRIVATE);
@@ -592,16 +645,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setIds() {
+    public void setIds() {
 
         profile = findViewById(R.id.profile);
         all_contacts = findViewById(R.id.all_contacts);
         recoded_audio = findViewById(R.id.recorded_audio);
         test = findViewById(R.id.test);
         add_contact = findViewById(R.id.add_contact);
+        activate = findViewById(R.id.activate);
     }
 
-    private void saveData(){
+    public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_DATA,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -643,4 +697,17 @@ public class MainActivity extends AppCompatActivity {
        getPermission();
        saveData();
     }
+
+
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
+//            Intent i = new Intent();
+//            i.setClass(getApplicationContext(), Profile.class);
+//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            getApplicationContext().startActivity(i);
+//        }
+//        return true;
+//    }
 }

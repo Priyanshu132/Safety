@@ -110,8 +110,22 @@
         android:layout_width="200dp"
         android:layout_marginTop="20dp"
         android:layout_height="60dp"
+        android:visibility="gone"
         android:text="Test app"
         android:id="@+id/test"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="60dp"
+        android:text="Activate"
+        android:id="@+id/activate"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="60dp"
+        android:text="Deactivate"
+        android:visibility="gone"
+        android:id="@+id/deactivate"/>
 
 
 
