@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -28,27 +29,25 @@
             android:exported="false" />
         <activity android:name="com.mind.blower.safety.SplashScreen">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name="com.mind.blower.safety.PrivacyPolicy" />
-        <activity android:name="com.mind.blower.safety.About" />
-        <activity android:name="com.mind.blower.safety.ForgetPassword" />
         <activity android:name="com.mind.blower.safety.SignUp" />
         <activity android:name="com.mind.blower.safety.Login">
 
         </activity>
         <activity android:name="com.mind.blower.safety.Guider" />
         <activity android:name="com.mind.blower.safety.AllContacts"></activity>
-        <activity android:name="com.mind.blower.safety.Recorded_images" />
         <activity android:name="com.mind.blower.safety.RecordedAudio" />
         <activity android:name="com.mind.blower.safety.Profile" />
         <activity android:name="com.mind.blower.safety.MainActivity"
             android:label="@string/app_name">
 
         </activity>
+
+
 
         <service
             android:name="com.mind.blower.safety.FirebaseMessagingService"
@@ -58,6 +57,14 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".ScreenOnOffBackgroundService"></service>
+        <receiver android:name="ScreenReceiver" >
+            <intent-filter>
+                <action android:name="android.media.VOLUME_CHANGED_ACTION" />
+            </intent-filter>
+        </receiver>
     </application>
+
+
 
 </manifest>
