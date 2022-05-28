@@ -1,12 +1,15 @@
 package com.mind.blower.safety;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -33,18 +36,22 @@ public class ScreenOnOffBackgroundService extends Service {
 
         if (intent.getAction().equals(ACTION_START_FOREGROUND_SERVICE)){
 
+            Intent intent1 = new Intent(this,MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent1,0);
 
             NotificationChannel channel = new NotificationChannel("Channel","Channel",NotificationManager.IMPORTANCE_LOW);
             getSystemService(NotificationManager.class).createNotificationChannel(channel);
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, "Channel")
                     .setOngoing(true)
                     .setContentTitle("SOS Activate")
+                    .setContentIntent(pendingIntent)
                     .setContentText("Service is Running");
+
 
 
             startForeground(1001, notification.build());
 
-            IntentFilter intentFilter = new IntentFilter();
+            IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
             intentFilter.addAction("android.intent.action.SCREEN_ON");
             intentFilter.addAction("android.intent.action.SCREEN_OFF");

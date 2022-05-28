@@ -42,20 +42,20 @@ public class Profile extends AppCompatActivity {
         getSupportActionBar().hide();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        final String[] msg = new String[1];
-        databaseReference.child("Message").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                msg[0] = snapshot.child("message").getValue().toString();
-                message.setText(msg[0]);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        final String[] msg = new String[1];
+//        databaseReference.child("Message").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                msg[0] = snapshot.child("message").getValue().toString();
+//                message.setText(msg[0]);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
         picture = findViewById(R.id.image);

@@ -1,6 +1,7 @@
 package com.mind.blower.safety;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
+import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
@@ -12,12 +13,15 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaRecorder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -46,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class Everything {
@@ -59,19 +64,22 @@ public class Everything {
     public static final String SHARED_DATA_VOICE = "voice";
     private static int MICROPHONE_PERMISSION_CODE = 200;
     private StorageReference storageReference;
+    LocationManager locationManager;
     private MediaRecorder mediaRecorder;
+    private static final int GPS_TIME_INTERVAL = 1000 * 60 * 5; // get gps location every 1 min
+    private static final int GPS_DISTANCE = 1000; // set the distance value in meter
+    private static final int HANDLER_DELAY = 1000 * 60 * 5;
+    private static final int START_HANDLER_DELAY = 0;
 
     public Everything(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
-        storageReference = FirebaseStorage.getInstance().getReference();
-
         FirebaseMessaging.getInstance().subscribeToTopic("all");
     }
 
 
     public void start(){
-        Log.e("sd","Entering in start Function");
+
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -85,34 +93,41 @@ public class Everything {
             ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.SEND_SMS},100);
         }
 
-
-        // Send Location
-        if(networkInfo != null) {
-
-            try {
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
-            }
-            catch (Exception e)
-            {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("erroring",e.getMessage());
-            }
-
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.e("sd","Entering in networkinfo Function");
-                getCurrentLocation();
-            } else {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-            }
+        try {
+           sendMessage(28.753612,77.4961515);
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        try {
+           // getCurrentLocation();
+            sendRecoding();
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
-
-
-        // Send Recordings
+        // Send Location
+//        if(networkInfo != null) {
+//
+//            try {
+//                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+//            }
+//            catch (Exception e)
+//            {
+//                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Log.d("erroring",e.getMessage());
+//            }
+//
+//            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
+//                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                Log.e("sd","Entering in networkinfo Function");
+//                getCurrentLocation();
+//            } else {
+//                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+//            }
+//        }
 
 
     }
@@ -132,7 +147,7 @@ public class Everything {
                 public void run() {
                     stopRecording();
 
-                  //  Toast.makeText(context, "Recording Done Good to go", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Recording Done Good to go", Toast.LENGTH_SHORT).show();
                     uploadRecordiing();
                 }
             }, 5000);
@@ -141,6 +156,7 @@ public class Everything {
 
     public void sendNotification(){
         // Send Notification
+        Toast.makeText(context, "Send Notification", Toast.LENGTH_SHORT).show();
         String title = "NEED YOUR HELP";
         String msg = "I am in trouble please help me.... See My location From Your Inbox";
         FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/all",title,msg,context,
@@ -158,11 +174,8 @@ public class Everything {
     }
 
     public void uploadRecordiing() {
-        //Toast.makeText(context,"Uploaded Recording",Toast.LENGTH_SHORT).show();
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Uploading Your Recording...");
-        progressDialog.setMessage("Please Wait! It will take a few minutes...");
-        progressDialog.show();
+
+        storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference filepath = storageReference.child("Emergency_Audio").child("New_Audio.mp3");
 
         Uri uri = Uri.fromFile(new File(getRecordingFilePath()));
@@ -173,8 +186,7 @@ public class Everything {
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
-           //     Toast.makeText(context,"Uploaded",Toast.LENGTH_SHORT).show();
+
 
                 filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -266,7 +278,7 @@ public class Everything {
     @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         Log.e("sd","Entering in getCurrentLocation Function");
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER)) {
@@ -306,8 +318,7 @@ public class Everything {
     }
 
     private void sendMessage() {
-        Log.e("sd","Entering in sendMessage Function To send SMS");
-        //  saveData();
+
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_DATA,MODE_PRIVATE);
         SharedPreferences sharedPreferences1 = context.getSharedPreferences(SHARED_DATA_MESSAGE,MODE_PRIVATE);
         HashSet<String> Numbers = (HashSet<String>) sharedPreferences.getStringSet("Number",new HashSet<>());
@@ -364,4 +375,7 @@ public class Everything {
 
         }
     }
+
+
+
 }

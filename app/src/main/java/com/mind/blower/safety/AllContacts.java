@@ -57,6 +57,7 @@ public class AllContacts extends AppCompatActivity {
                     arrayList.add(contact);
                 }
                 myAdapter = new MyAdapter(getApplicationContext(),arrayList);
+                System.out.println("All Contact  "+arrayList.size());
                 recyclerView.setAdapter(myAdapter);
                 //myAdapter.notifyDataSetChanged();
             }
